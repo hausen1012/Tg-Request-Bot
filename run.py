@@ -6,7 +6,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # 检查是否存在 config.yaml 文件
 if os.path.exists('./data/config.yaml'):
-    with open('config.yaml', 'r') as file:
+    with open('./data/config.yaml', 'r') as file:
         config = yaml.safe_load(file)
 else:
     config = {'services': []}  # 如果 config.yaml 不存在，使用空配置
