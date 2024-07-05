@@ -1,3 +1,4 @@
+import os
 import yaml
 import telebot
 import requests
