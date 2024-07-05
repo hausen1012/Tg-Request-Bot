@@ -1,0 +1,10 @@
+services:
+  - name: "百度"
+    url: "https://www.baidu.com/"
+    method: "GET"
+  # 会异常
+  - name: "百度带参数"
+    url: "https://www.baidu.com/"
+    method: "GET"
+    param: "wd"
+    tips: "请输入查询内容"
