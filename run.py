@@ -45,16 +45,21 @@ def handle_service_request(message, service, chat_id=None):
     if chat_id is None:
         chat_id = message.chat.id
     param_value = message.text if message else None
-    if service['method'] == 'POST':
-        response = requests.post(service['url'], data={service['param']: param_value} if param_value else None)
-    else:
-        response = requests.get(service['url'], params={service['param']: param_value} if param_value else None)
-  
-    response_text = response.text.strip()
-    if response.status_code == 200:
-        bot.send_message(chat_id, f"请求成功: {response_text}" if response_text else "请求成功")
-    else:
-        bot.send_message(chat_id, f"请求失败: {response_text}" if response_text else "请求失败")
+    try:
+        if service['method'] == 'POST':
+            response = requests.post(service['url'], data={service['param']: param_value} if param_value else None)
+        else:
+            response = requests.get(service['url'], params={service['param']: param_value} if param_value else None)
+        
+        response_text = response.text.strip()
+        
+        if response.status_code == 200:
+            bot.send_message(chat_id, f"请求成功: {response_text}" if response_text else "请求成功")
+        else:
+            bot.send_message(chat_id, f"请求失败: {response_text}" if response_text else "请求失败")
+    except Exception as e:
+        error_message = f"请求过程中发生异常: {str(e)}"
+        bot.send_message(chat_id, error_message)
 
 # 启动 bot
 bot.polling()
